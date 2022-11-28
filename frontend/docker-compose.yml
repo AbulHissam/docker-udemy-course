@@ -1,0 +1,14 @@
+# Volumes are refrences to the folders on host machine
+version: '3'
+services:
+  web:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - 3001:3000
+    volumes:
+      # we can have node_modules inside the app alone not needed on host.that also needs mapping,because start scripts requires this
+      # mapping folders in current context to same folders in /app
+      - /app/node_modules
+      - .:/app

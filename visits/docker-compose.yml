@@ -1,0 +1,27 @@
+# Docker compose file will be parsed to docker-cli commands
+# version of docker-compose file used
+# services are containers
+
+# when we create containers using docker-compose networking will be automatically
+# created between the containers.No need for us to do anything.
+
+# restart policies
+#   1."no" - it has to be string,because no in  docker-compose file means false
+#   2.always
+#   3.on-failure - exit code other than 0
+#   2.unless-stopped - unless we forcibly stop it
+
+# Here are we are building 2 containers
+# 1.redis 2.node-app
+version: "3"
+services:
+  redis-server:
+    image: "redis"
+    command: "redis-server --protected-mode no"
+  node-app:
+    restart: "no"
+    # look in the current directory for Dockerfile
+    build: .
+    # '-' represents array
+    ports:
+      - "4001:8081"
